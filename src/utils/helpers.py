@@ -1,5 +1,6 @@
 import datetime
 import os
+import matplotlib.pyplot as plt
 
 def format_date(date):
     """Formats a datetime object to a string in the format YYYY-MM-DD."""

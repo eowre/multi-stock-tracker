@@ -1,10 +1,22 @@
 class StockDataAnalyzer:
     def calculate_daily_returns(self, data):
-        """Calculate daily returns from stock data."""
-        data["Daily Return"] = data["Close"].pct_change() * 100
-        return data
+        """Calculate daily returns from stock data and modify DataFrame in-place."""
+        import pandas as pd
+        
+        if "Close" not in data.columns:
+            raise ValueError("Data must contain 'Close' column to calculate daily returns.")
+        
+        # Convert Close to numeric in-place
+        data.loc[:, "Close"] = pd.to_numeric(data["Close"], errors='coerce')
+        
+        # Calculate daily returns in-place
+        data.loc[:, "Daily Return"] = data["Close"].pct_change() * 100
+        data.loc[:, "Daily Return"].fillna(0, inplace=True)
+        
+        return None  # Explicitly show this modifies in-place
 
     def calculate_moving_averages(self, data, window):
-        """Calculate moving averages for the stock data."""
-        data[f"{window}-day MA"] = data["Close"].rolling(window=window).mean()
-        return data
+        """Calculate moving averages and modify DataFrame in-place."""
+        column_name = f"{window}-day MA"
+        data.loc[:, column_name] = data["Close"].rolling(window=window).mean()
+        return None  # Explicitly show this modifies in-place

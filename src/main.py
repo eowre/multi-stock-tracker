@@ -15,9 +15,10 @@ def main():
         data = fetcher.fetch_data(ticker)
         
         print(f"Analyzing data for {ticker}...")
-        data['Daily Return'] = analyzer.calculate_daily_returns(data)
-        data['7-day MA'] = analyzer.calculate_moving_averages(data, 7)
-        data['30-day MA'] = analyzer.calculate_moving_averages(data, 30)
+        # All operations modify data in-place
+        analyzer.calculate_daily_returns(data)
+        analyzer.calculate_moving_averages(data, 7)
+        analyzer.calculate_moving_averages(data, 30)
         
         print(f"Visualizing data for {ticker}...")
         visualizer.plot_price(data)
