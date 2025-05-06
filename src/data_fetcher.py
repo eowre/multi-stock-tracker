@@ -10,7 +10,5 @@ class StockDataFetcher:
         :return: DataFrame containing stock data
         """
         stock_data = self.yf.Ticker(ticker).history(period="1y", interval="1d")
-        print(stock_data.head())
-        print(stock_data.tail())
         print(stock_data.isnull().sum())  # Debugging line to check for null values
         return stock_data  # Drop any rows with null values
